@@ -7,6 +7,7 @@ const refreshBlue = "#1957ff";
 const styles = StyleSheet.create({
   logo: {
     fontWeight: 700,
+    fontSize: 20,
   },
   header: {
     display: "flex",
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     height: "100%",
+    borderWidth: 1,
   },
   title: {
     fontSize: 32,

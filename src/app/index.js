@@ -1,16 +1,20 @@
+import { Stack, Link, useRouter } from "expo-router";
 import { View, Text, Button, TextInput, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../theme/theme";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FAB } from "@rneui/themed";
+import { FAB, Dialog } from "@rneui/themed";
+import SearchBox from "../components/SearchBox";
 
 const api_key = "d3fd8fcc6b8b585756b3191fba50333d";
 
 export default function Home() {
+  const router = useRouter();
   const [hasData, setHasData] = useState(false);
   const [userCount, setUserCount] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [dialogState, setDialogState] = useState(false);
 
   const url = `https://api.themoviedb.org/3/movie/11?api_key=${api_key}`;
 
@@ -71,32 +75,34 @@ export default function Home() {
     console.log("User list cleared...");
   };
 
+  const toggleDialog = () => {
+    setDialogState(!dialogState);
+  };
+
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <FAB
-          visible={visible}
-          icon={{ name: "search", color: "white" }}
-          size="small"
-        />
+    <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: "Home",
+          headerRight: () => <Link href="rented">My Movies</Link>,
+        }}
+      />
+      <Text style={styles.title}>Search your favorite movies</Text>
 
-        <Text style={styles.title}>Search your favorite movies</Text>
+      <FAB
+        visible={visible}
+        icon={{ name: "search", color: "white" }}
+        size="small"
+        onPress={toggleDialog}
+      />
 
-        <View style={styles.home}>
-          <TextInput
-            style={styles.search}
-            placeholder="find a movie you like"
-          />
-          <View style={{ marginTop: 20 }}>
-            <Pressable
-              style={styles.buttonBase}
-              accessibilityLabel="Press to search movies"
-            >
-              <Text style={{ color: "white" }}>Search</Text>
-            </Pressable>
-          </View>
-        </View>
-      </View>
-    </SafeAreaView>
+      <Dialog isVisible={dialogState} onBackdropPress={toggleDialog}>
+        <SearchBox />
+      </Dialog>
+    </View>
   );
 }
+
+Home.options = {
+  headerShown: false,
+};
