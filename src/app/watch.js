@@ -1,18 +1,17 @@
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { View, Text } from "react-native";
 import { styles } from "../theme/theme";
 
-export default function Rented() {
+export default function Watch() {
   return (
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: "My Movies",
+          title: "Watch",
           headerBackTitle: "Back",
         }}
       />
-      <Text>My Movies</Text>
-      <Link href="watch">Watch</Link>
+      <Text>Watching Movies</Text>
     </View>
   );
 }

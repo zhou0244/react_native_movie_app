@@ -1,18 +1,19 @@
 import { Stack, Link, useRouter } from "expo-router";
 import { View, Text, Button, TextInput, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../theme/theme";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FAB, Dialog } from "@rneui/themed";
 import SearchBox from "../components/SearchBox";
+import { DataProvider } from "../context/SearchContext";
+import MovieCard from "../components/MovieCard";
 
 const api_key = "d3fd8fcc6b8b585756b3191fba50333d";
+const api_token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkM2ZkOGZjYzZiOGI1ODU3NTZiMzE5MWZiYTUwMzMzZCIsIm5iZiI6MTcxMDc5ODI4My43NzcsInN1YiI6IjY1ZjhiNWNiYWFmODk3MDE0ODJjZjUwMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.reksCWgvLF-iXkmw2C71iB2kTM905PHTvc9CV50TnPo";
 
 export default function Home() {
   const router = useRouter();
-  const [hasData, setHasData] = useState(false);
-  const [userCount, setUserCount] = useState(0);
   const [visible, setVisible] = useState(true);
   const [dialogState, setDialogState] = useState(false);
 
@@ -20,7 +21,7 @@ export default function Home() {
 
   useEffect(() => {}, []);
 
-  const fetchData = async (url) => {
+  const fetchMovies = async (url) => {
     try {
       const response = await fetch(url);
 
@@ -58,7 +59,7 @@ export default function Home() {
         return users;
       } else {
         console.log("No data found...");
-        return fetchData(url);
+        return fetchMovies(url);
       }
     } catch (err) {
       console.error(err);
@@ -80,26 +81,30 @@ export default function Home() {
   };
 
   return (
-    <View style={styles.container}>
-      <Stack.Screen
-        options={{
-          title: "Home",
-          headerRight: () => <Link href="rented">My Movies</Link>,
-        }}
-      />
-      <Text style={styles.title}>Search your favorite movies</Text>
+    <DataProvider>
+      <View style={styles.container}>
+        <Stack.Screen
+          options={{
+            title: "CinemaDirect",
+            headerRight: () => <Link href="rented">My Movies</Link>,
+          }}
+        />
+        <Text style={styles.title}>Welcome to CinemaDirect</Text>
 
-      <FAB
-        visible={visible}
-        icon={{ name: "search", color: "white" }}
-        size="small"
-        onPress={toggleDialog}
-      />
+        <MovieCard />
 
-      <Dialog isVisible={dialogState} onBackdropPress={toggleDialog}>
-        <SearchBox />
-      </Dialog>
-    </View>
+        <FAB
+          visible={visible}
+          icon={{ name: "search", color: "white" }}
+          size="small"
+          onPress={toggleDialog}
+        />
+
+        <Dialog isVisible={dialogState} onBackdropPress={toggleDialog}>
+          <SearchBox />
+        </Dialog>
+      </View>
+    </DataProvider>
   );
 }
 

@@ -51,6 +51,11 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     textAlign: "center",
   },
+  subTitle: {
+    fontSize: 24,
+    fontWeight: 700,
+    textAlign: "center",
+  },
   text: {
     fontSize: 16,
     textAlign: "center",
