@@ -6,9 +6,18 @@ import { useData } from "../context/SearchContext";
 export default function SearchBox() {
   const [text, onChangeText] = useState("");
   const { searchKeyword, setSearchKeyword } = useData();
-  const { hasKeyword, setHasKeyword } = useData();
+  const [hasKeyword, setHasKeyword] = useState(true);
 
   const getKeyword = () => {
+    if (text == "") {
+      setHasKeyword(false);
+
+      setTimeout(() => {
+        setHasKeyword(true);
+      }, 3000);
+
+      return;
+    }
     setSearchKeyword(text);
   };
 
@@ -16,14 +25,16 @@ export default function SearchBox() {
     <View style={styles.home}>
       <Text style={styles.subTitle}>Search your favorite movies</Text>
 
-      <TextInput
-        style={styles.search}
-        keyboardType="default"
-        placeholder="find a movie you like"
-        onChangeText={onChangeText}
-        value={text}
-      />
-      {hasKeyword ? <Text>1</Text> : <Text>Try type something</Text>}
+      <View>
+        <TextInput
+          style={styles.search}
+          keyboardType="default"
+          placeholder="find a movie you like"
+          onChangeText={onChangeText}
+          value={text}
+        />
+        {hasKeyword ? null : <Text>Try type something</Text>}
+      </View>
 
       <View style={{ marginTop: 20 }}>
         <Pressable

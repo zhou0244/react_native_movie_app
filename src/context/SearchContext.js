@@ -8,14 +8,12 @@ function DataProvider({ children }) {
   const [movies, setMovies] = useState([]);
   const [hasMovie, setHasMovie] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [hasKeyword, setHasKeyword] = useState(false);
 
   useEffect(() => {
     if (searchKeyword == "") {
       return;
     }
     fetchMovie();
-    setHasKeyword(true);
     setHasMovie(true);
   }, [searchKeyword]);
 
@@ -57,8 +55,6 @@ function DataProvider({ children }) {
         fetchMovie,
         searchKeyword,
         setSearchKeyword,
-        hasKeyword,
-        setHasKeyword,
         hasMovie,
         setHasMovie,
       }}
