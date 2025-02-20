@@ -6,17 +6,10 @@ const api_token =
 
 function DataProvider({ children }) {
   const [movies, setMovies] = useState([]);
-  const [hasMovie, setHasMovie] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [hasKeyword, setHasKeyword] = useState(false);
 
   useEffect(() => {
-    if (searchKeyword == "") {
-      return;
-    }
     fetchMovie();
-    setHasKeyword(true);
-    setHasMovie(true);
   }, [searchKeyword]);
 
   useEffect(() => {
@@ -52,16 +45,7 @@ function DataProvider({ children }) {
 
   return (
     <DataContext.Provider
-      value={{
-        movies,
-        fetchMovie,
-        searchKeyword,
-        setSearchKeyword,
-        hasKeyword,
-        setHasKeyword,
-        hasMovie,
-        setHasMovie,
-      }}
+      value={{ movies, fetchMovie, searchKeyword, setSearchKeyword }}
     >
       {children}
     </DataContext.Provider>
