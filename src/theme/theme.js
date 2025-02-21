@@ -5,6 +5,10 @@ const grey = "grey";
 const refreshBlue = "#1957ff";
 
 const styles = StyleSheet.create({
+  video: {
+    width: 350,
+    height: 275,
+  },
   logo: {
     fontWeight: 700,
     fontSize: 20,

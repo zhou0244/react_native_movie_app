@@ -1,4 +1,4 @@
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { View, Text, FlatList } from "react-native";
 import { styles } from "../theme/theme";
 import { useMovie } from "../context/StorageContext";
@@ -16,7 +16,6 @@ export default function Rented() {
         }}
       />
       <Text>My Movies</Text>
-      <Link href="watch">Watch</Link>
 
       <FlatList
         data={rentedMovies}

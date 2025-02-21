@@ -15,6 +15,13 @@ export default function MovieCard({
   const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
   const router = useRouter();
 
+  const goToMovie = (id, title) => {
+    router.push({
+      pathname: `/[id]`,
+      params: { id, title },
+    });
+  };
+
   return (
     <View style={{ borderWidth: 1, marginBottom: 20 }}>
       {poster ? (
@@ -37,6 +44,9 @@ export default function MovieCard({
           <Pressable
             style={styles.buttonBase}
             accessibilityLabel="Press to watch this movie"
+            onPress={() => {
+              goToMovie(id, title);
+            }}
           >
             <Text style={{ color: "white" }}>Watch Movies</Text>
           </Pressable>

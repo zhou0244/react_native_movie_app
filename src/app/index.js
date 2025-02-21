@@ -9,6 +9,7 @@ import MovieCard from "../components/MovieCard";
 import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
+
 export default function Home() {
   const { rentedMovies, setRentedMovies } = useMovie();
   const { listedMovies, setListedMovies } = useData();
@@ -42,11 +43,6 @@ export default function Home() {
     console.log("Remaining listed movies:", remainedListedMovies.length);
   };
 
-  useEffect(() => {
-    console.log("Number of rented movies:", rentedMovies.length);
-  }, [rentedMovies]);
-
-  // do not list movies that already rented
   useEffect(() => {
     console.log("Number of rented movies:", rentedMovies.length);
   }, [rentedMovies]);
