@@ -9,18 +9,13 @@ function MovieProvider({ children }) {
 
   useEffect(() => {}, []);
 
-  const saveRentedMovies = async (movieName) => {};
+  const getMovie = (id) => {};
 
-  const getMovie = async (storageKey) => {
-    try {
-      const jsonValue = await AsyncStorage.getItem(storageKey);
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (err) {
-      console.log(`Getting ${storageKey} movies failed`, err);
-    }
-  };
-
-  return <DataContext.Provider value={{}}>{children}</DataContext.Provider>;
+  return (
+    <DataContext.Provider value={{ rentedMovies, setRentedMovies }}>
+      {children}
+    </DataContext.Provider>
+  );
 }
 
 function useMovie() {

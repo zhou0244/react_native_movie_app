@@ -1,24 +1,43 @@
 import { Stack, Link, useRouter } from "expo-router";
-import { View, Text, Button, TextInput, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { styles } from "../theme/theme";
 import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FAB, Dialog } from "@rneui/themed";
 import SearchBox from "../components/SearchBox";
 import { useData } from "../context/SearchContext";
 import MovieCard from "../components/MovieCard";
 import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
+import { useMovie } from "../context/StorageContext";
 export default function Home() {
   const router = useRouter();
+  const { rentedMovies, setRentedMovies } = useMovie();
   const { listedMovies, setListedMovies } = useData();
   const [visible, setVisible] = useState(true);
   const [dialogState, setDialogState] = useState(false);
-  const [rented, setRented] = useState(false);
+  const [isRentButton, setIsRentButton] = useState(false);
+  const [movieSelected, setMovieSelected] = useState({});
 
   const toggleDialog = () => {
     setDialogState(!dialogState);
   };
+
+  const saveRentedMovies = (movieId) => {
+    const matchedMovie = listedMovies.find((item) => item.id === movieId);
+    setRentedMovies((rentedMovies) => [...rentedMovies, matchedMovie]);
+    console.log(`${matchedMovie.title} rented successfully!`);
+
+    // remove it from the listed movies
+    const remainedListedMovies = listedMovies.filter(
+      (item) => item.id !== movieId
+    );
+    setListedMovies(remainedListedMovies);
+    console.log("Remaining listed movies:", remainedListedMovies.length);
+  };
+
+  useEffect(() => {
+    console.log("Number of rented movies:", rentedMovies.length);
+  }, [rentedMovies]);
 
   return (
     <View style={styles.container}>
@@ -41,9 +60,10 @@ export default function Home() {
               rate={vote_average}
               poster={poster_path}
               toggleDialog={() => {
-                setRented(true);
+                setIsRentButton(true);
                 toggleDialog();
               }}
+              setMovieSelected={setMovieSelected}
             />
           );
         }}
@@ -55,14 +75,18 @@ export default function Home() {
         icon={{ name: "search", color: "white" }}
         size="small"
         onPress={() => {
-          setRented(false);
+          setIsRentButton(false);
           toggleDialog();
         }}
       />
 
       <Dialog isVisible={dialogState} onBackdropPress={toggleDialog}>
-        {rented ? (
-          <RentBox toggleDialog={toggleDialog} />
+        {isRentButton ? (
+          <RentBox
+            toggleDialog={toggleDialog}
+            movieSelected={movieSelected}
+            saveRentedMovies={saveRentedMovies}
+          />
         ) : (
           <SearchBox toggleDialog={toggleDialog} />
         )}
