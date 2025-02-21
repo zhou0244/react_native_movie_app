@@ -15,12 +15,12 @@ export default function Home() {
   const [visible, setVisible] = useState(true);
   const [dialogState, setDialogState] = useState(false);
 
-  useEffect(() => {
-    if (!hasMovie) {
-      return;
-    }
-    toggleDialog();
-  }, [movies]);
+  // useEffect(() => {
+  //   if (!hasMovie) {
+  //     return;
+  //   }
+  //   toggleDialog();
+  // }, [movies]);
 
   const toggleDialog = () => {
     setDialogState(!dialogState);
@@ -60,7 +60,7 @@ export default function Home() {
       />
 
       <Dialog isVisible={dialogState} onBackdropPress={toggleDialog}>
-        <SearchBox />
+        <SearchBox toggleDialog={toggleDialog} />
       </Dialog>
     </View>
   );

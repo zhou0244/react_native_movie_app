@@ -7,14 +7,13 @@ const api_token =
 function DataProvider({ children }) {
   const [movies, setMovies] = useState([]);
   const [hasMovie, setHasMovie] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("matrix");
 
   useEffect(() => {
     if (searchKeyword == "") {
       return;
     }
-    fetchMovie();
-    setHasMovie(true);
+    fetchData();
   }, [searchKeyword]);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ function DataProvider({ children }) {
     }
   }, [movies]);
 
-  const fetchMovie = async () => {
+  const fetchData = async () => {
     const url = `https://api.themoviedb.org/3/search/movie?query=${searchKeyword}&include_adult=false&language=en-US&page=1`;
     const options = {
       method: "GET",
@@ -44,6 +43,7 @@ function DataProvider({ children }) {
         const newMovies = json.results;
         console.log("Fetch success!", newMovies[0]);
         setMovies(newMovies);
+        setHasMovie(true);
       })
       .catch((err) => console.error(err));
   };
@@ -52,7 +52,7 @@ function DataProvider({ children }) {
     <DataContext.Provider
       value={{
         movies,
-        fetchMovie,
+        fetchData,
         searchKeyword,
         setSearchKeyword,
         hasMovie,

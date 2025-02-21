@@ -1,4 +1,4 @@
-import { Image, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
 import { Text } from "react-native";
 import { styles } from "../theme/theme";
 
@@ -17,9 +17,18 @@ export default function MovieCard({ id, title, rate, poster }) {
           No poster found...
         </Text>
       )}
-      <Text>{id}</Text>
-      <Text>{title}</Text>
-      <Text>{rate}</Text>
+
+      <View style={{ padding: 20 }}>
+        <Text>{id}</Text>
+        <Text>{title}</Text>
+        <Text>{rate}</Text>
+        <Pressable
+          style={styles.buttonBase}
+          accessibilityLabel="Press to rent this movie"
+        >
+          <Text style={{ color: "white" }}>Rent</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

@@ -3,7 +3,7 @@ import { styles } from "../theme/theme";
 import { useState } from "react";
 import { useData } from "../context/SearchContext";
 
-export default function SearchBox() {
+export default function SearchBox({ toggleDialog }) {
   const [text, onChangeText] = useState("");
   const { searchKeyword, setSearchKeyword } = useData();
   const [hasKeyword, setHasKeyword] = useState(true);
@@ -19,6 +19,8 @@ export default function SearchBox() {
       return;
     }
     setSearchKeyword(text);
+    console.log(text);
+    toggleDialog();
   };
 
   return (
@@ -40,10 +42,7 @@ export default function SearchBox() {
         <Pressable
           style={styles.buttonBase}
           accessibilityLabel="Press to search movies"
-          onPress={() => {
-            getKeyword();
-            console.log(text);
-          }}
+          onPress={getKeyword}
         >
           <Text style={{ color: "white" }}>Search</Text>
         </Pressable>
