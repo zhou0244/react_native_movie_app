@@ -1,4 +1,4 @@
-import { Stack, Link, useRouter } from "expo-router";
+import { Stack, Link } from "expo-router";
 import { View, Text } from "react-native";
 import { styles } from "../theme/theme";
 import { useEffect, useState } from "react";
@@ -10,7 +10,6 @@ import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
 export default function Home() {
-  const router = useRouter();
   const { rentedMovies, setRentedMovies } = useMovie();
   const { listedMovies, setListedMovies } = useData();
   const [visible, setVisible] = useState(true);
@@ -23,6 +22,14 @@ export default function Home() {
   };
 
   const saveRentedMovies = (movieId) => {
+    if (rentedMovies.length > 0) {
+      const isRented = rentedMovies.some((item) => item.id === movieId);
+      if (isRented) {
+        console.log("It is already rented");
+        return;
+      }
+    }
+
     const matchedMovie = listedMovies.find((item) => item.id === movieId);
     setRentedMovies((rentedMovies) => [...rentedMovies, matchedMovie]);
     console.log(`${matchedMovie.title} rented successfully!`);
@@ -35,6 +42,11 @@ export default function Home() {
     console.log("Remaining listed movies:", remainedListedMovies.length);
   };
 
+  useEffect(() => {
+    console.log("Number of rented movies:", rentedMovies.length);
+  }, [rentedMovies]);
+
+  // do not list movies that already rented
   useEffect(() => {
     console.log("Number of rented movies:", rentedMovies.length);
   }, [rentedMovies]);
@@ -64,6 +76,7 @@ export default function Home() {
                 toggleDialog();
               }}
               setMovieSelected={setMovieSelected}
+              source="listed"
             />
           );
         }}

@@ -1,15 +1,11 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { useData } from "./SearchContext";
 
 const DataContext = createContext();
 
 function MovieProvider({ children }) {
   const [rentedMovies, setRentedMovies] = useState([]);
-  const { listedMovies, setListedMovies } = useData();
 
   useEffect(() => {}, []);
-
-  const getMovie = (id) => {};
 
   return (
     <DataContext.Provider value={{ rentedMovies, setRentedMovies }}>

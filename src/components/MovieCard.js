@@ -1,6 +1,7 @@
 import { Image, Pressable, View } from "react-native";
 import { Text } from "react-native";
 import { styles } from "../theme/theme";
+import { useRouter } from "expo-router";
 
 export default function MovieCard({
   id,
@@ -9,8 +10,10 @@ export default function MovieCard({
   poster,
   toggleDialog,
   setMovieSelected,
+  source,
 }) {
   const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+  const router = useRouter();
 
   return (
     <View style={{ borderWidth: 1, marginBottom: 20 }}>
@@ -29,16 +32,26 @@ export default function MovieCard({
         <Text>{id}</Text>
         <Text>{title}</Text>
         <Text>{rate}</Text>
-        <Pressable
-          style={styles.buttonBase}
-          accessibilityLabel="Press to rent this movie"
-          onPress={() => {
-            toggleDialog();
-            setMovieSelected({ id: id, name: title });
-          }}
-        >
-          <Text style={{ color: "white" }}>Rent Movie</Text>
-        </Pressable>
+
+        {source === "rented" ? (
+          <Pressable
+            style={styles.buttonBase}
+            accessibilityLabel="Press to watch this movie"
+          >
+            <Text style={{ color: "white" }}>Watch Movies</Text>
+          </Pressable>
+        ) : (
+          <Pressable
+            style={styles.buttonBase}
+            accessibilityLabel="Press to rent this movie"
+            onPress={() => {
+              toggleDialog();
+              setMovieSelected({ id: id, name: title });
+            }}
+          >
+            <Text style={{ color: "white" }}>Rent Movie</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
