@@ -1,12 +1,12 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DataContext = createContext();
 const api_token =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkM2ZkOGZjYzZiOGI1ODU3NTZiMzE5MWZiYTUwMzMzZCIsIm5iZiI6MTcxMDc5ODI4My43NzcsInN1YiI6IjY1ZjhiNWNiYWFmODk3MDE0ODJjZjUwMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.reksCWgvLF-iXkmw2C71iB2kTM905PHTvc9CV50TnPo";
 
 function DataProvider({ children }) {
-  const [movies, setMovies] = useState([]);
-  const [hasMovie, setHasMovie] = useState(false);
+  const [listedMovies, setListedMovies] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("matrix");
 
   useEffect(() => {
@@ -14,16 +14,11 @@ function DataProvider({ children }) {
       return;
     }
     fetchData();
+    saveToStorage(listedMovies);
   }, [searchKeyword]);
 
-  useEffect(() => {
-    if (movies.length > 0) {
-      console.log("Movie saved:", movies.length);
-    }
-  }, [movies]);
-
   const fetchData = async () => {
-    const url = `https://api.themoviedb.org/3/search/movie?query=${searchKeyword}&include_adult=false&language=en-US&page=1`;
+    const url = `https://api.themoviedb.org/3/search/movie?query=${searchKeyword}&include_adult=false&language=en-US`;
     const options = {
       method: "GET",
       headers: {
@@ -41,22 +36,29 @@ function DataProvider({ children }) {
       })
       .then((json) => {
         const newMovies = json.results;
-        console.log("Fetch success!", newMovies[0]);
-        setMovies(newMovies);
-        setHasMovie(true);
+        console.log(`Success! ${newMovies.length} movies fetched.`);
+        setListedMovies(newMovies);
       })
       .catch((err) => console.error(err));
+  };
+
+  const saveToStorage = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("listed", jsonValue);
+      console.log("Listed movies saved to storage.");
+    } catch (err) {
+      console.log("Failed to save to storage.", err);
+    }
   };
 
   return (
     <DataContext.Provider
       value={{
-        movies,
-        fetchData,
+        listedMovies,
+        setListedMovies,
         searchKeyword,
         setSearchKeyword,
-        hasMovie,
-        setHasMovie,
       }}
     >
       {children}

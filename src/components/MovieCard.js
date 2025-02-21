@@ -2,7 +2,7 @@ import { Image, Pressable, View } from "react-native";
 import { Text } from "react-native";
 import { styles } from "../theme/theme";
 
-export default function MovieCard({ id, title, rate, poster }) {
+export default function MovieCard({ id, title, rate, poster, toggleDialog }) {
   const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
   return (
@@ -25,6 +25,7 @@ export default function MovieCard({ id, title, rate, poster }) {
         <Pressable
           style={styles.buttonBase}
           accessibilityLabel="Press to rent this movie"
+          onPress={toggleDialog}
         >
           <Text style={{ color: "white" }}>Rent</Text>
         </Pressable>
