@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Pressable } from "react-native";
 import { styles } from "../theme/theme";
 import { useMovie } from "../context/StorageContext";
@@ -11,8 +11,9 @@ const videoSrc =
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export default function Watch() {
-  const { rentedMovies, setRentedMovies } = useMovie();
+  const { removeRented } = useMovie();
   const { id, title } = useLocalSearchParams();
+  const router = useRouter();
   const player = useVideoPlayer(videoSrc, (player) => {
     player.loop = false;
   });
@@ -40,6 +41,19 @@ export default function Watch() {
     }
   }, [orientation]);
 
+  const handleMarkAsWatched = () => {
+    try {
+      if (id) {
+        router.back();
+        removeRented(id);
+      } else {
+        console.error("No movie ID found in params");
+      }
+    } catch (error) {
+      console.error("Error in handleMarkAsWatched:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -64,7 +78,7 @@ export default function Watch() {
       />
 
       {!isPlaying ? (
-        <Pressable style={styles.buttonBase}>
+        <Pressable style={styles.buttonBase} onPress={handleMarkAsWatched}>
           <Text>Marked as watched</Text>
         </Pressable>
       ) : null}

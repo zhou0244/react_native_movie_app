@@ -9,11 +9,10 @@ import MovieCard from "../components/MovieCard";
 import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home() {
-  const { rentedMovies, setRentedMovies } = useMovie();
-  const { listedMovies, setListedMovies } = useData();
+  const { rentedMovies, saveRentedMovies } = useMovie();
+  const { listedMovies } = useData();
   const [visible, setVisible] = useState(true);
   const [dialogState, setDialogState] = useState(false);
   const [isRentButton, setIsRentButton] = useState(false);
@@ -21,38 +20,6 @@ export default function Home() {
 
   const toggleDialog = () => {
     setDialogState(!dialogState);
-  };
-
-  const saveRentedMovies = (movieId) => {
-    if (rentedMovies.length > 0) {
-      const isRented = rentedMovies.some((item) => item.id === movieId);
-      if (isRented) {
-        console.log("It is already rented");
-        return;
-      }
-    }
-
-    const matchedMovie = listedMovies.find((item) => item.id === movieId);
-    console.log(`${matchedMovie.title} rented successfully!`);
-    setRentedMovies((rentedMovies) => [...rentedMovies, matchedMovie]);
-    saveToStorage(rentedMovies);
-
-    // remove it from the listed movies
-    const remainedListedMovies = listedMovies.filter(
-      (item) => item.id !== movieId
-    );
-    setListedMovies(remainedListedMovies);
-    console.log("Remaining listed movies:", remainedListedMovies.length);
-  };
-
-  const saveToStorage = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("rented", jsonValue);
-      console.log("Rented movies saved to storage.");
-    } catch (err) {
-      console.log("Failed to save to storage.", err);
-    }
   };
 
   useEffect(() => {

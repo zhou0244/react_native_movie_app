@@ -1,11 +1,12 @@
-import { Stack } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, FlatList } from "react-native";
 import { styles } from "../theme/theme";
 import { useMovie } from "../context/StorageContext";
 import MovieCard from "../components/MovieCard";
+import { useEffect, useState } from "react";
 
 export default function Rented() {
-  const { rentedMovies, setRentedMovies } = useMovie();
+  const { rentedMovies } = useMovie();
 
   return (
     <View style={styles.container}>

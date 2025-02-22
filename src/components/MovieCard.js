@@ -1,7 +1,7 @@
 import { Image, Pressable, View } from "react-native";
 import { Text } from "react-native";
 import { styles } from "../theme/theme";
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 
 export default function MovieCard({
   id,
@@ -20,6 +20,7 @@ export default function MovieCard({
       pathname: `/[id]`,
       params: { id, title },
     });
+    console.log(`You're on ${title} page`);
   };
 
   return (
