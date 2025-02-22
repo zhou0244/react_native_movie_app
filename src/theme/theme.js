@@ -64,27 +64,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  detailsCard: {
-    display: "flex",
-    gap: 20,
-  },
-  details: {
-    marginBottom: 16,
-  },
-  detailsAvatar: {
-    width: "100%",
-    height: 240,
-    backgroundColor: "white",
-    borderRadius: 10,
-    resizeMode: "contain",
-  },
-  detailsTitle: {
-    fontWeight: 700,
-  },
-  detailsContent: {
-    fontSize: 16,
-    marginTop: 4,
-  },
   link: {
     display: "flex",
     flexDirection: "row",
@@ -103,12 +82,6 @@ const styles = StyleSheet.create({
     borderColor: "#c9c9c9",
     borderRadius: 8,
   },
-  username: {
-    fontSize: 14,
-    textTransform: "uppercase",
-    fontWeight: 700,
-  },
-  avatar: { width: 100, height: 100, marginRight: 20 },
 });
 
 export { styles };

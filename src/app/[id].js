@@ -5,6 +5,7 @@ import { useMovie } from "../context/StorageContext";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { useEffect, useRef, useState } from "react";
 import { useDeviceOrientation } from "@react-native-community/hooks";
+import { useEvent } from "expo";
 
 const videoSrc =
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
@@ -19,8 +20,17 @@ export default function Watch() {
   const [orient, setOrient] = useState("portrait");
   const vidview = useRef(null);
 
+  const { isPlaying } = useEvent(player, "playingChange", {
+    isPlaying: player.playing,
+  });
+
+  useEffect(() => {
+    console.log(`Is playing? ${isPlaying}`);
+  }, [isPlaying]);
+
   useEffect(() => {
     setOrient(orientation);
+
     console.log(`${orientation} mode`);
 
     if (orientation === "landscape") {
@@ -38,18 +48,26 @@ export default function Watch() {
           headerBackTitle: "Back",
         }}
       />
-      <Text>Watching Movies {title}</Text>
+      {isPlaying ? null : (
+        <View>
+          <Text>You're watching</Text>
+          <Text>{title}</Text>
+        </View>
+      )}
 
       <VideoView
         ref={vidview}
         allowsFullscreen
         player={player}
+        nativeControls={true}
         style={styles.video}
       />
 
-      <Pressable style={styles.buttonBase}>
-        <Text>Marked as watched</Text>
-      </Pressable>
+      {!isPlaying ? (
+        <Pressable style={styles.buttonBase}>
+          <Text>Marked as watched</Text>
+        </Pressable>
+      ) : null}
     </View>
   );
 }

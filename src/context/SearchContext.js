@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DataContext = createContext();
 const api_token =
@@ -14,7 +13,6 @@ function DataProvider({ children }) {
       return;
     }
     fetchData();
-    saveToStorage(listedMovies);
   }, [searchKeyword]);
 
   const fetchData = async () => {
@@ -40,16 +38,6 @@ function DataProvider({ children }) {
         setListedMovies(newMovies);
       })
       .catch((err) => console.error(err));
-  };
-
-  const saveToStorage = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("listed", jsonValue);
-      console.log("Listed movies saved to storage.");
-    } catch (err) {
-      console.log("Failed to save to storage.", err);
-    }
   };
 
   return (

@@ -9,6 +9,7 @@ import MovieCard from "../components/MovieCard";
 import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home() {
   const { rentedMovies, setRentedMovies } = useMovie();
@@ -32,8 +33,9 @@ export default function Home() {
     }
 
     const matchedMovie = listedMovies.find((item) => item.id === movieId);
-    setRentedMovies((rentedMovies) => [...rentedMovies, matchedMovie]);
     console.log(`${matchedMovie.title} rented successfully!`);
+    setRentedMovies((rentedMovies) => [...rentedMovies, matchedMovie]);
+    saveToStorage(rentedMovies);
 
     // remove it from the listed movies
     const remainedListedMovies = listedMovies.filter(
@@ -41,6 +43,16 @@ export default function Home() {
     );
     setListedMovies(remainedListedMovies);
     console.log("Remaining listed movies:", remainedListedMovies.length);
+  };
+
+  const saveToStorage = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("rented", jsonValue);
+      console.log("Rented movies saved to storage.");
+    } catch (err) {
+      console.log("Failed to save to storage.", err);
+    }
   };
 
   useEffect(() => {
