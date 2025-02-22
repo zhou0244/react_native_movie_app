@@ -1,5 +1,6 @@
 import { Pressable, Text, View } from "react-native";
 import { styles } from "../theme/theme";
+import Button from "./Button";
 
 export default function RentBox({
   movieSelected,
@@ -9,18 +10,22 @@ export default function RentBox({
   return (
     <View>
       <Text>Do you want to rent {movieSelected.name} for $4.99?</Text>
-      <Pressable
-        style={styles.buttonBase}
+
+      <Button
+        text="Confirm"
+        accessibilityLabel="Press to confirm"
         onPress={() => {
           saveRentedMovies(movieSelected.id);
           toggleDialog();
         }}
-      >
-        <Text style={{ color: "white" }}>Confirm</Text>
-      </Pressable>
-      <Pressable style={styles.buttonBase} onPress={toggleDialog}>
-        <Text style={{ color: "white" }}>Cancel</Text>
-      </Pressable>
+      />
+
+      <Button
+        type="cancel"
+        text="Cancel"
+        accessibilityLabel="Press to cancel"
+        onPress={toggleDialog}
+      />
     </View>
   );
 }

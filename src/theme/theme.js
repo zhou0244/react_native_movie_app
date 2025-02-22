@@ -5,6 +5,18 @@ const grey = "grey";
 const refreshBlue = "#1957ff";
 
 const styles = StyleSheet.create({
+  warning: {
+    color: "red",
+    textAlign: "center",
+    marginTop: 2,
+  },
+  textOnWhite: { color: blue, textAlign: "center" },
+  textOnDark: { color: "white", textAlign: "center" },
+  dialog: {
+    borderRadius: 16,
+    paddingHorizontal: 32,
+    paddingVertical: 48,
+  },
   video: {
     width: 350,
     height: 275,
@@ -23,18 +35,28 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 16,
     paddingVertical: 8,
+    marginTop: 16,
   },
   buttonBase: {
     borderRadius: 24,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 16,
     backgroundColor: blue,
+    marginBlockStart: 16,
+  },
+  buttonOutline: {
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: blue,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    backgroundColor: "white",
+    marginBlockStart: 16,
   },
   home: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-end",
+    alignItems: "stretch",
   },
   icon: {
     fontSize: 12,
@@ -43,20 +65,22 @@ const styles = StyleSheet.create({
   active: blue,
   inactive: grey,
   textSizes: [12, 14, 16, 24],
+  body: { backgroundColor: "white" },
   container: {
-    padding: 20,
-    paddingTop: 0,
-    paddingBottom: 0,
-    height: "100%",
-    borderWidth: 1,
+    padding: 16,
+    card: {
+      padding: 16,
+      backgroundColor: "#e1e1e1",
+    },
   },
   title: {
     fontSize: 32,
     fontWeight: 700,
     textAlign: "center",
+    margin: 16,
   },
   subTitle: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 700,
     textAlign: "center",
   },
@@ -68,19 +92,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginBottom: 10,
-  },
-  card: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingLeft: 10,
-    paddingRight: 30,
-    backgroundColor: "white",
-    borderWidth: 1,
-    borderColor: "#c9c9c9",
-    borderRadius: 8,
   },
 });
 

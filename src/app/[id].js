@@ -6,6 +6,7 @@ import { useVideoPlayer, VideoView } from "expo-video";
 import { useEffect, useRef, useState } from "react";
 import { useDeviceOrientation } from "@react-native-community/hooks";
 import { useEvent } from "expo";
+import Button from "../components/Button";
 
 const videoSrc =
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
@@ -58,7 +59,7 @@ export default function Watch() {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: "Watch",
+          title: "Movie Player",
           headerBackTitle: "Back",
         }}
       />
@@ -78,9 +79,11 @@ export default function Watch() {
       />
 
       {!isPlaying ? (
-        <Pressable style={styles.buttonBase} onPress={handleMarkAsWatched}>
-          <Text>Marked as watched</Text>
-        </Pressable>
+        <Button
+          type="cancel"
+          text="Marked as watched"
+          onPress={handleMarkAsWatched}
+        />
       ) : null}
     </View>
   );

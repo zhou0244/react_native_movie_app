@@ -1,16 +1,26 @@
-import { Pressable, Text, TextInput, View } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { styles } from "../theme/theme";
 import { useState } from "react";
 import { useData } from "../context/SearchContext";
+import Button from "./Button";
 
 export default function SearchBox({ toggleDialog }) {
   const [text, onChangeText] = useState("");
-  const { searchKeyword, setSearchKeyword } = useData();
+  const { setSearchKeyword } = useData();
   const [hasKeyword, setHasKeyword] = useState(true);
 
   const getKeyword = () => {
-    if (text == "") {
+    if (text.trim().length === 0) {
       setHasKeyword(false);
+      onChangeText("");
 
       setTimeout(() => {
         setHasKeyword(true);
@@ -24,29 +34,42 @@ export default function SearchBox({ toggleDialog }) {
   };
 
   return (
-    <View style={styles.home}>
-      <Text style={styles.subTitle}>Search your favorite movies</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.home}>
+          <Text style={styles.subTitle}>Search your favorite movies</Text>
 
-      <View>
-        <TextInput
-          style={styles.search}
-          keyboardType="default"
-          placeholder="find a movie you like"
-          onChangeText={onChangeText}
-          value={text}
-        />
-        {hasKeyword ? null : <Text>Try type something</Text>}
-      </View>
+          <View
+            style={{
+              height: 60,
+              width: "100%",
+            }}
+          >
+            <TextInput
+              style={styles.search}
+              placeholder="find a movie you like"
+              onChangeText={onChangeText}
+              value={text}
+              autoCapitalize="none"
+              autoFocus={true}
+              clearButtonMode="always"
+              returnKeyType="search"
+              onSubmitEditing={getKeyword}
+            />
+            {hasKeyword ? null : (
+              <Text style={styles.warning}>Try type something</Text>
+            )}
+          </View>
 
-      <View style={{ marginTop: 20 }}>
-        <Pressable
-          style={styles.buttonBase}
-          accessibilityLabel="Press to search movies"
-          onPress={getKeyword}
-        >
-          <Text style={{ color: "white" }}>Search</Text>
-        </Pressable>
-      </View>
-    </View>
+          <Button
+            text="Search"
+            accessibilityLabel="Press to search movies"
+            onPress={getKeyword}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
