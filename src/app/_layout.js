@@ -9,6 +9,11 @@ import * as SplashScreen from "expo-splash-screen";
 
 SplashScreen.preventAutoHideAsync();
 
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
+
 export default function RootLayout({ children }) {
   const [loaded] = useFonts({
     RobotoSlab_Regular: require("../../assets/fonts/Roboto_Slab/RobotoSlab-Regular.ttf"),

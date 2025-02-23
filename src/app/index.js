@@ -42,13 +42,13 @@ export default function Home() {
       />
 
       {searchKeyword ? (
-        <View style={{ paddingTop: 32, paddingBottom: 16 }}>
-          <Text style={styles.subTitle}>
+        <View style={{ paddingTop: 24 }}>
+          <Text style={[styles.subTitle, { paddingBottom: 8 }]}>
             Results for
             <Text style={{ color: "royalblue" }}> "{searchKeyword}"</Text>
           </Text>
           <FlatList
-            style={styles.cardList}
+            contentContainerStyle={styles.cardList}
             data={listedMovies}
             renderItem={({ item }) => {
               const {
@@ -87,6 +87,7 @@ export default function Home() {
           }}
         >
           <Text style={[styles.title]}>Welcome to{"\n"}The Best Movie App</Text>
+
           <Image
             source={require("../../assets/undraw_home-cinema_jdm1.png")}
             style={{ height: 320, width: "100%" }}

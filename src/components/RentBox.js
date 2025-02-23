@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { styles } from "../theme/style";
 import Button from "./Button";
 
@@ -9,8 +9,10 @@ export default function RentBox({
 }) {
   return (
     <View>
-      <Text style={styles.subTitle}>
-        Do you want to rent {movieSelected.name} for $4.99?
+      <Text style={[styles.subTitle, { marginBottom: 16 }]}>
+        Do you want to rent{"\n"}
+        <Text style={{ color: "royalblue" }}>{movieSelected.name}</Text>
+        {"\n"}for $4.99?
       </Text>
 
       <Button

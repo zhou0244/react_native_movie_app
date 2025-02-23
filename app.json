@@ -49,6 +49,20 @@
             "./assets/fonts/Roboto_Slab/RobotoSlab-Black.ttf"
           ]
         }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#232323",
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "dark": {
+            "image": "./assets/splash-icon-dark.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#000000"
+          },
+          "imageWidth": 200
+        }
       ]
     ]
   }
