@@ -1,5 +1,5 @@
 import { Stack, Link } from "expo-router";
-import { View, Text, Platform } from "react-native";
+import { View, Text } from "react-native";
 import { styles } from "../theme/style";
 import { useEffect, useState } from "react";
 import { FAB, Dialog } from "@rneui/themed";
@@ -9,7 +9,6 @@ import MovieCard from "../components/MovieCard";
 import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
-import { KeyboardAvoidingView } from "react-native";
 
 export default function Home() {
   const { rentedMovies, saveRentedMovies } = useMovie();
@@ -36,10 +35,13 @@ export default function Home() {
           headerRight: () => <Link href="rented">My Movies</Link>,
         }}
       />
-      <Text style={styles.title}>
-        Results for "
-        <Text style={{ color: "royalblue" }}>{searchKeyword}"</Text>
-      </Text>
+
+      <View style={{ paddingTop: 32, paddingBottom: 8 }}>
+        <Text style={styles.subTitle}>
+          Results for
+          <Text style={{ color: "royalblue" }}> "{searchKeyword}"</Text>
+        </Text>
+      </View>
 
       <FlatList
         style={styles.container.card}

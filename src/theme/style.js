@@ -5,6 +5,14 @@ const grey = "grey";
 const refreshBlue = "#1957ff";
 
 const styles = StyleSheet.create({
+  movieInfo: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    gap: 32,
+    paddingHorizontal: 8,
+    paddingBottom: 4,
+  },
   warning: {
     color: "red",
     textAlign: "center",
@@ -18,8 +26,8 @@ const styles = StyleSheet.create({
     paddingVertical: 48,
   },
   video: {
-    width: 350,
-    height: 275,
+    width: "100%",
+    height: 300,
   },
   card: {
     borderRadius: 16,
@@ -53,20 +61,24 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   button: {
-    borderRadius: 24,
+    borderRadius: 64,
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: blue,
     marginBlockStart: 16,
   },
   buttonOutline: {
-    borderRadius: 24,
+    borderRadius: 64,
     borderWidth: 1,
     borderColor: blue,
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: "white",
     marginBlockStart: 16,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "600",
   },
   home: {
     display: "flex",
@@ -89,22 +101,27 @@ const styles = StyleSheet.create({
     },
   },
   title: {
-    fontFamily: "RobotoSlab",
+    fontFamily: "RobotoSlab_Bold",
     fontSize: 28,
     fontWeight: 700,
     textAlign: "center",
-    margin: 16,
   },
   subTitle: {
+    fontFamily: "RobotoSlab_SemiBold",
     fontSize: 18,
     fontWeight: 700,
     textAlign: "center",
-    margin: 8,
   },
   text: {
+    fontFamily: "RobotoSlab_Regular",
     fontSize: 16,
     textAlign: "center",
-    margin: 8,
+  },
+  rate: {
+    fontFamily: "RobotoSlab_SemiBold",
+    fontSize: 16,
+    textAlign: "center",
+    color: "#f04800",
   },
   link: {
     display: "flex",

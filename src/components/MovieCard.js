@@ -3,6 +3,7 @@ import { styles } from "../theme/style";
 import { Stack, useRouter } from "expo-router";
 import Button from "./Button";
 import MovieInfo from "./MovieInfo";
+import { Card } from "@rneui/base";
 
 export default function MovieCard({
   id,
@@ -27,7 +28,7 @@ export default function MovieCard({
   };
 
   return (
-    <View style={styles.card}>
+    <Card style={styles.card}>
       <MovieInfo title={title} language={language} year={year} rate={rate} />
 
       <View style={styles.poster}>
@@ -48,6 +49,7 @@ export default function MovieCard({
           <Button
             text="Watch Movie"
             accessibilityLabel="Press to watch this movie"
+            iconName="eye"
             onPress={() => {
               goToMovie(id, title);
             }}
@@ -56,6 +58,7 @@ export default function MovieCard({
           <Button
             text="Rent Movie"
             accessibilityLabel="Press to rent this movie"
+            iconName="shopping-cart"
             onPress={() => {
               toggleDialog();
               setMovieSelected({ id: id, name: title });
@@ -63,6 +66,6 @@ export default function MovieCard({
           />
         )}
       </View>
-    </View>
+    </Card>
   );
 }

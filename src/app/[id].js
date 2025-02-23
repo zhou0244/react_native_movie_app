@@ -64,27 +64,30 @@ export default function Watch() {
         }}
       />
       {isPlaying ? null : (
-        <View>
-          <Text>You're watching</Text>
-          <Text>{title}</Text>
+        <View style={{ paddingTop: 32, paddingBottom: 8 }}>
+          <Text style={styles.subTitle}>You're watching</Text>
+          <Text style={[styles.title, { color: "royalblue" }]}>{title}</Text>
         </View>
       )}
 
-      <VideoView
-        ref={vidview}
-        allowsFullscreen
-        player={player}
-        nativeControls={true}
-        style={styles.video}
-      />
-
-      {!isPlaying ? (
-        <Button
-          type="cancel"
-          text="Marked as watched"
-          onPress={handleMarkAsWatched}
+      <View style={{ paddingHorizontal: 16 }}>
+        <VideoView
+          ref={vidview}
+          allowsFullscreen
+          player={player}
+          nativeControls={true}
+          style={styles.video}
         />
-      ) : null}
+
+        {!isPlaying ? (
+          <Button
+            type="cancel"
+            text="Marked as Watched"
+            iconName="check"
+            onPress={handleMarkAsWatched}
+          />
+        ) : null}
+      </View>
     </View>
   );
 }

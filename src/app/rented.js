@@ -24,11 +24,20 @@ export default function Rented() {
           data={rentedMovies}
           style={styles.container.card}
           renderItem={({ item }) => {
-            const { id, title, vote_average, poster_path } = item;
+            const {
+              id,
+              title,
+              original_language,
+              release_date,
+              vote_average,
+              poster_path,
+            } = item;
             return (
               <MovieCard
                 id={id}
                 title={title}
+                language={original_language}
+                year={release_date}
                 rate={vote_average}
                 poster={poster_path}
                 source="rented"
