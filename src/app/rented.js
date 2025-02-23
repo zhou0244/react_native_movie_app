@@ -1,6 +1,6 @@
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { View, Text, FlatList } from "react-native";
-import { styles } from "../theme/theme";
+import { styles } from "../theme/style";
 import { useMovie } from "../context/StorageContext";
 import MovieCard from "../components/MovieCard";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ export default function Rented() {
   const { rentedMovies } = useMovie();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.body}>
       <Stack.Screen
         options={{
           title: "My Movies",
@@ -22,6 +22,7 @@ export default function Rented() {
       ) : (
         <FlatList
           data={rentedMovies}
+          style={styles.container.card}
           renderItem={({ item }) => {
             const { id, title, vote_average, poster_path } = item;
             return (

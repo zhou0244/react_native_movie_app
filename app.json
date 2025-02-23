@@ -33,6 +33,22 @@
           "supportsBackgroundPlayback": true,
           "supportsPictureInPicture": true
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Roboto_Slab/RobotoSlab-Thin.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-ExtraLight.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-Light.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-Regular.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-Medium.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-SemiBold.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-Bold.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-ExtraBold.ttf",
+            "./assets/fonts/Roboto_Slab/RobotoSlab-Black.ttf"
+          ]
+        }
       ]
     ]
   }

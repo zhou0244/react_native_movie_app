@@ -1,5 +1,5 @@
 import { Pressable, Text, View } from "react-native";
-import { styles } from "../theme/theme";
+import { styles } from "../theme/style";
 import Button from "./Button";
 
 export default function RentBox({

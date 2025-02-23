@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { styles } from "../theme/theme";
+import { styles } from "../theme/style";
 import { useState } from "react";
 import { useData } from "../context/SearchContext";
 import Button from "./Button";

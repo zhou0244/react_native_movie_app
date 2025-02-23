@@ -1,12 +1,14 @@
-import { Image, Pressable, View } from "react-native";
-import { Text } from "react-native";
-import { styles } from "../theme/theme";
+import { Image, Text, View } from "react-native";
+import { styles } from "../theme/style";
 import { Stack, useRouter } from "expo-router";
 import Button from "./Button";
+import MovieInfo from "./MovieInfo";
 
 export default function MovieCard({
   id,
   title,
+  language,
+  year,
   rate,
   poster,
   toggleDialog,
@@ -25,23 +27,10 @@ export default function MovieCard({
   };
 
   return (
-    <View
-      style={{
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.15,
-        shadowRadius: 4,
-      }}
-    >
-      <View
-        style={{
-          borderRadius: 16,
-          borderWidth: 0,
-          marginVertical: 16,
-          backgroundColor: "white",
-          overflow: "hidden",
-        }}
-      >
+    <View style={styles.card}>
+      <MovieInfo title={title} language={language} year={year} rate={rate} />
+
+      <View style={styles.poster}>
         {poster ? (
           <Image
             source={{ uri: IMAGE_BASE_URL + poster }}
@@ -52,30 +41,27 @@ export default function MovieCard({
             No poster found...
           </Text>
         )}
+      </View>
 
-        <View style={{ padding: 20 }}>
-          <Text>{title}</Text>
-          <Text>{rate}</Text>
-
-          {source === "rented" ? (
-            <Button
-              text="Watch Movie"
-              accessibilityLabel="Press to watch this movie"
-              onPress={() => {
-                goToMovie(id, title);
-              }}
-            />
-          ) : (
-            <Button
-              text="Rent Movie"
-              accessibilityLabel="Press to rent this movie"
-              onPress={() => {
-                toggleDialog();
-                setMovieSelected({ id: id, name: title });
-              }}
-            />
-          )}
-        </View>
+      <View style={{ padding: 16 }}>
+        {source === "rented" ? (
+          <Button
+            text="Watch Movie"
+            accessibilityLabel="Press to watch this movie"
+            onPress={() => {
+              goToMovie(id, title);
+            }}
+          />
+        ) : (
+          <Button
+            text="Rent Movie"
+            accessibilityLabel="Press to rent this movie"
+            onPress={() => {
+              toggleDialog();
+              setMovieSelected({ id: id, name: title });
+            }}
+          />
+        )}
       </View>
     </View>
   );

@@ -1,6 +1,6 @@
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Pressable } from "react-native";
-import { styles } from "../theme/theme";
+import { styles } from "../theme/style";
 import { useMovie } from "../context/StorageContext";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { useEffect, useRef, useState } from "react";
@@ -56,7 +56,7 @@ export default function Watch() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.body}>
       <Stack.Screen
         options={{
           title: "Movie Player",

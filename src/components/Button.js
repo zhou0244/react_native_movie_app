@@ -1,12 +1,12 @@
 import { Pressable, Text } from "react-native";
-import { styles } from "../theme/theme";
+import { styles } from "../theme/style";
 import { View } from "react-native";
 
 export default function Button({
-  type,
+  type = "",
   text = "Button",
   onPress,
-  accessibilityLabel,
+  accessibilityLabel = "",
 }) {
   if (type == "cancel") {
     return (
@@ -18,7 +18,7 @@ export default function Button({
     );
   }
   return (
-    <View style={styles.buttonBase}>
+    <View style={styles.button}>
       <Pressable accessibilityLabel={accessibilityLabel} onPress={onPress}>
         <Text style={styles.textOnDark}>{text}</Text>
       </Pressable>

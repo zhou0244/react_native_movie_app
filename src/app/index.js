@@ -1,6 +1,6 @@
 import { Stack, Link } from "expo-router";
 import { View, Text, Platform } from "react-native";
-import { styles } from "../theme/theme";
+import { styles } from "../theme/style";
 import { useEffect, useState } from "react";
 import { FAB, Dialog } from "@rneui/themed";
 import SearchBox from "../components/SearchBox";
@@ -32,20 +32,33 @@ export default function Home() {
       <Stack.Screen
         options={{
           title: "CinemaDirect",
+          headerTitleStyle: { fontFamily: "RobotoSlab_Bold" },
           headerRight: () => <Link href="rented">My Movies</Link>,
         }}
       />
-      <Text style={styles.title}>Results for "{searchKeyword}"</Text>
+      <Text style={styles.title}>
+        Results for "
+        <Text style={{ color: "royalblue" }}>{searchKeyword}"</Text>
+      </Text>
 
       <FlatList
         style={styles.container.card}
         data={listedMovies}
         renderItem={({ item }) => {
-          const { id, title, vote_average, poster_path } = item;
+          const {
+            id,
+            title,
+            original_language,
+            release_date,
+            vote_average,
+            poster_path,
+          } = item;
           return (
             <MovieCard
               id={id}
               title={title}
+              language={original_language}
+              year={release_date}
               rate={vote_average}
               poster={poster_path}
               toggleDialog={() => {
