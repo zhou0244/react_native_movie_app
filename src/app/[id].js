@@ -15,13 +15,18 @@ export default function Watch() {
   const { removeRented } = useMovie();
   const { id, title } = useLocalSearchParams();
   const router = useRouter();
+
+  // Initialize video player with video source
   const player = useVideoPlayer(videoSrc, (player) => {
     player.loop = false;
   });
+
+  // Get current device orientation (portrait or landscape)
   const orientation = useDeviceOrientation();
   const [orient, setOrient] = useState("portrait");
   const vidview = useRef(null);
 
+  // Set up event listener for video playing state
   const { isPlaying } = useEvent(player, "playingChange", {
     isPlaying: player.playing,
   });
@@ -31,10 +36,11 @@ export default function Watch() {
   }, [isPlaying]);
 
   useEffect(() => {
+    // Update orientation state on orientation change
     setOrient(orientation);
-
     console.log(`${orientation} mode`);
 
+    // If the orientation is landscape, enable fullscreen mode, else exit fullscreen
     if (orientation === "landscape") {
       vidview.current.enterFullscreen();
     } else if (orientation === "portrait") {
@@ -42,6 +48,7 @@ export default function Watch() {
     }
   }, [orientation]);
 
+  // Function to handle marking a movie as watched
   const handleMarkAsWatched = () => {
     try {
       if (id) {

@@ -1,5 +1,5 @@
 import { Stack, Link } from "expo-router";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { styles } from "../theme/style";
 import { useEffect, useState } from "react";
 import { FAB, Dialog } from "@rneui/themed";
@@ -11,17 +11,22 @@ import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
 
 export default function Home() {
+  // Custom hooks to access movie and search data from context
   const { rentedMovies, saveRentedMovies } = useMovie();
   const { listedMovies, searchKeyword } = useData();
+
+  // State management for UI elements
   const [visible, setVisible] = useState(true);
   const [dialogState, setDialogState] = useState(false);
   const [isRentButton, setIsRentButton] = useState(false);
   const [movieSelected, setMovieSelected] = useState({});
 
+  // Toggle dialog visibility
   const toggleDialog = () => {
     setDialogState(!dialogState);
   };
 
+  // Debug log for rented movies
   useEffect(() => {
     console.log("Number of rented movies:", rentedMovies.length);
   }, [rentedMovies]);
@@ -36,44 +41,59 @@ export default function Home() {
         }}
       />
 
-      <View style={{ paddingTop: 32, paddingBottom: 8 }}>
-        <Text style={styles.subTitle}>
-          Results for
-          <Text style={{ color: "royalblue" }}> "{searchKeyword}"</Text>
-        </Text>
-      </View>
-
-      <FlatList
-        style={styles.container.card}
-        data={listedMovies}
-        renderItem={({ item }) => {
-          const {
-            id,
-            title,
-            original_language,
-            release_date,
-            vote_average,
-            poster_path,
-          } = item;
-          return (
-            <MovieCard
-              id={id}
-              title={title}
-              language={original_language}
-              year={release_date}
-              rate={vote_average}
-              poster={poster_path}
-              toggleDialog={() => {
-                setIsRentButton(true);
-                toggleDialog();
-              }}
-              setMovieSelected={setMovieSelected}
-              source="listed"
-            />
-          );
-        }}
-        keyExtractor={(item) => item.id.toString()}
-      />
+      {searchKeyword ? (
+        <View style={{ paddingTop: 32, paddingBottom: 16 }}>
+          <Text style={styles.subTitle}>
+            Results for
+            <Text style={{ color: "royalblue" }}> "{searchKeyword}"</Text>
+          </Text>
+          <FlatList
+            style={styles.cardList}
+            data={listedMovies}
+            renderItem={({ item }) => {
+              const {
+                id,
+                title,
+                original_language,
+                release_date,
+                vote_average,
+                poster_path,
+              } = item;
+              return (
+                <MovieCard
+                  id={id}
+                  title={title}
+                  language={original_language}
+                  year={release_date}
+                  rate={vote_average}
+                  poster={poster_path}
+                  toggleDialog={() => {
+                    setIsRentButton(true);
+                    toggleDialog();
+                  }}
+                  setMovieSelected={setMovieSelected}
+                  source="listed"
+                />
+              );
+            }}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </View>
+      ) : (
+        <View
+          style={{
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
+          <Text style={[styles.title]}>Welcome to{"\n"}The Best Movie App</Text>
+          <Image
+            source={require("../../assets/undraw_home-cinema_jdm1.png")}
+            style={{ height: 320, width: "100%" }}
+            resizeMode="contain"
+          />
+        </View>
+      )}
 
       <FAB
         visible={visible}

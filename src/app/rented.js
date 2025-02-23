@@ -6,6 +6,7 @@ import MovieCard from "../components/MovieCard";
 import { useEffect, useState } from "react";
 
 export default function Rented() {
+  // Accessing rentedMovies from context using custom hook
   const { rentedMovies } = useMovie();
 
   return (
@@ -17,6 +18,7 @@ export default function Rented() {
         }}
       />
 
+      {/* Conditional rendering: If rentedMovies is empty, display a message */}
       {rentedMovies == 0 ? (
         <Text>It looks empty here, go rent some movies.</Text>
       ) : (

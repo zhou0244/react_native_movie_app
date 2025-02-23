@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
     height: 300,
   },
   card: {
-    borderRadius: 16,
+    borderRadius: 12,
     padding: 8,
-    marginVertical: 16,
+    marginVertical: 24,
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
     marginVertical: 8,
+    height: 320,
   },
   logo: {
     fontWeight: 700,
@@ -95,10 +96,9 @@ const styles = StyleSheet.create({
   body: { height: "100%", backgroundColor: "white" },
   container: {
     padding: 16,
-    card: {
-      padding: 16,
-      backgroundColor: "#e1e1e1",
-    },
+  },
+  cardList: {
+    backgroundColor: "#e1e1e1",
   },
   title: {
     fontFamily: "RobotoSlab_Bold",

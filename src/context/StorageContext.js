@@ -8,8 +8,7 @@ function MovieProvider({ children }) {
   const [rentedMovies, setRentedMovies] = useState([]);
   const { listedMovies, setListedMovies } = useData();
 
-  useEffect(() => {}, []);
-
+  // Function to rent a movie by its ID
   const saveRentedMovies = (movieId) => {
     if (rentedMovies.length > 0) {
       const isRented = rentedMovies.some((item) => item.id === movieId);

@@ -12,11 +12,11 @@ const theme = createTheme({
       //set your various properties for the Text element
     }),
   },
-  mode: "dark",
+  mode: "light",
   darkColors: {
     primary: "#439ce0",
     searchBg: "#303337",
-    secondary: "#7513b6",
+    secondary: "#e95500",
     success: "#439946",
     warning: "#cfbe27",
     white: "#fff5f5",
@@ -24,7 +24,7 @@ const theme = createTheme({
   lightColors: {
     primary: "#2089dc",
     searchBg: "#303337",
-    secondary: "#ad1457",
+    secondary: "#e95500",
     success: "#52c41a",
     warning: "#faad14",
     white: "#ffffff",

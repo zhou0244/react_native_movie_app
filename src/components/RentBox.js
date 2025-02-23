@@ -9,7 +9,9 @@ export default function RentBox({
 }) {
   return (
     <View>
-      <Text>Do you want to rent {movieSelected.name} for $4.99?</Text>
+      <Text style={styles.subTitle}>
+        Do you want to rent {movieSelected.name} for $4.99?
+      </Text>
 
       <Button
         text="Confirm"

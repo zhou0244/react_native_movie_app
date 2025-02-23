@@ -1,9 +1,9 @@
 import { Image, Text, View } from "react-native";
 import { styles } from "../theme/style";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import Button from "./Button";
 import MovieInfo from "./MovieInfo";
-import { Card } from "@rneui/base";
+import { Card, Icon } from "@rneui/base";
 
 export default function MovieCard({
   id,
@@ -28,19 +28,31 @@ export default function MovieCard({
   };
 
   return (
-    <Card style={styles.card}>
+    <Card containerStyle={styles.card}>
       <MovieInfo title={title} language={language} year={year} rate={rate} />
 
       <View style={styles.poster}>
         {poster ? (
           <Image
             source={{ uri: IMAGE_BASE_URL + poster }}
-            style={{ height: 320 }}
+            style={{ height: "100%" }}
           />
         ) : (
-          <Text style={{ color: "red", paddingBlock: 40 }}>
-            No poster found...
-          </Text>
+          <View
+            style={{
+              justifyContent: "center",
+              height: "100%",
+            }}
+          >
+            <Image
+              source={require("../../assets/undraw_taken_mshk.png")}
+              style={{ height: 200, width: "100%" }}
+              resizeMode="contain"
+            />
+            <Text style={{ color: "red", textAlign: "center" }}>
+              No poster found...
+            </Text>
+          </View>
         )}
       </View>
 
