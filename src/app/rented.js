@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Image } from "react-native";
 import { styles } from "../theme/style";
 import { useMovie } from "../context/StorageContext";
 import MovieCard from "../components/MovieCard";
@@ -20,7 +20,20 @@ export default function Rented() {
 
       {/* Conditional rendering: If rentedMovies is empty, display a message */}
       {rentedMovies == 0 ? (
-        <Text>It looks empty here, go rent some movies.</Text>
+        <View
+          style={{
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
+          <Text style={[styles.subTitle]}>It looks empty here...</Text>
+
+          <Image
+            source={require("../../assets/undraw_void_wez2.png")}
+            style={{ height: 320, width: "100%" }}
+            resizeMode="contain"
+          />
+        </View>
       ) : (
         <FlatList
           data={rentedMovies}

@@ -9,6 +9,7 @@ import MovieCard from "../components/MovieCard";
 import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
+import { theme } from "../theme/theme";
 
 export default function Home() {
   // Custom hooks to access movie and search data from context
@@ -87,6 +88,11 @@ export default function Home() {
           }}
         >
           <Text style={[styles.title]}>Welcome to{"\n"}The Best Movie App</Text>
+          <Text
+            style={[styles.subTitle, { color: theme.darkColors.secondary }]}
+          >
+            Tap the icon to search
+          </Text>
 
           <Image
             source={require("../../assets/undraw_home-cinema_jdm1.png")}

@@ -10,7 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 SplashScreen.setOptions({
-  duration: 1000,
+  duration: 2000,
   fade: true,
 });
 
