@@ -27,6 +27,9 @@ export default function Home() {
     setDialogState(!dialogState);
   };
 
+  // Create a footer component
+  const ListFooter = () => <Text style={styles.listFooter}>- End -</Text>;
+
   // Debug log for rented movies
   useEffect(() => {
     console.log("Number of rented movies:", rentedMovies.length);
@@ -78,6 +81,10 @@ export default function Home() {
               );
             }}
             keyExtractor={(item) => item.id.toString()}
+            ListFooterComponent={ListFooter}
+            ListFooterComponentStyle={{
+              marginBottom: 16,
+            }}
           />
         </View>
       ) : (

@@ -5,6 +5,12 @@ const grey = "grey";
 const refreshBlue = "#1957ff";
 
 const styles = StyleSheet.create({
+  listFooter: {
+    textAlign: "center",
+    padding: 20,
+    fontFamily: "RobotoSlab",
+    color: "#666",
+  },
   movieInfo: {
     flexDirection: "row",
     alignItems: "baseline",

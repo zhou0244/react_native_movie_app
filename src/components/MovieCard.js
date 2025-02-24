@@ -3,7 +3,13 @@ import { styles } from "../theme/style";
 import { useRouter } from "expo-router";
 import Button from "./Button";
 import MovieInfo from "./MovieInfo";
-import { Card, Icon } from "@rneui/base";
+import { Card } from "@rneui/base";
+
+import Animated, {
+  FadeInDown,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
 
 export default function MovieCard({
   id,
@@ -15,6 +21,7 @@ export default function MovieCard({
   toggleDialog,
   setMovieSelected,
   source,
+  index = 0,
 }) {
   const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
   const router = useRouter();
@@ -28,56 +35,67 @@ export default function MovieCard({
   };
 
   return (
-    <Card containerStyle={styles.card}>
-      <MovieInfo title={title} language={language} year={year} rate={rate} />
+    <Animated.View
+      entering={FadeInDown.delay(index * 100).springify()}
+      exiting={FadeOut}
+      layout={
+        LinearTransition.springify()
+          .mass(0.5) // Affects bounciness
+          .damping(30) // Affects how quickly animation settles
+          .stiffness(200) // Affects speed of animation
+      }
+    >
+      <Card containerStyle={styles.card}>
+        <MovieInfo title={title} language={language} year={year} rate={rate} />
 
-      <View style={styles.poster}>
-        {poster ? (
-          <Image
-            source={{ uri: IMAGE_BASE_URL + poster }}
-            style={{ height: "100%" }}
-          />
-        ) : (
-          <View
-            style={{
-              justifyContent: "center",
-              height: "100%",
-            }}
-          >
+        <View style={styles.poster}>
+          {poster ? (
             <Image
-              source={require("../../assets/undraw_taken_mshk.png")}
-              style={{ height: 200, width: "100%" }}
-              resizeMode="contain"
+              source={{ uri: IMAGE_BASE_URL + poster }}
+              style={{ height: "100%" }}
             />
-            <Text style={{ color: "red", textAlign: "center" }}>
-              No poster found...
-            </Text>
-          </View>
-        )}
-      </View>
+          ) : (
+            <View
+              style={{
+                justifyContent: "center",
+                height: "100%",
+              }}
+            >
+              <Image
+                source={require("../../assets/undraw_taken_mshk.png")}
+                style={{ height: 200, width: "100%" }}
+                resizeMode="contain"
+              />
+              <Text style={{ color: "red", textAlign: "center" }}>
+                No poster found...
+              </Text>
+            </View>
+          )}
+        </View>
 
-      <View style={{ padding: 16 }}>
-        {source === "rented" ? (
-          <Button
-            text="Watch Movie"
-            accessibilityLabel="Press to watch this movie"
-            iconName="eye"
-            onPress={() => {
-              goToMovie(id, title);
-            }}
-          />
-        ) : (
-          <Button
-            text="Rent Movie"
-            accessibilityLabel="Press to rent this movie"
-            iconName="shopping-cart"
-            onPress={() => {
-              toggleDialog();
-              setMovieSelected({ id: id, name: title });
-            }}
-          />
-        )}
-      </View>
-    </Card>
+        <View style={{ padding: 16 }}>
+          {source === "rented" ? (
+            <Button
+              text="Watch Movie"
+              accessibilityLabel="Press to watch this movie"
+              iconName="eye"
+              onPress={() => {
+                goToMovie(id, title);
+              }}
+            />
+          ) : (
+            <Button
+              text="Rent Movie"
+              accessibilityLabel="Press to rent this movie"
+              iconName="shopping-cart"
+              onPress={() => {
+                toggleDialog();
+                setMovieSelected({ id: id, name: title });
+              }}
+            />
+          )}
+        </View>
+      </Card>
+    </Animated.View>
   );
 }

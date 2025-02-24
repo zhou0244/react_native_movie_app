@@ -1,13 +1,15 @@
 import { Stack } from "expo-router";
-import { View, Text, FlatList, Image } from "react-native";
+import { View, Text, FlatList, Image, Button } from "react-native";
 import { styles } from "../theme/style";
 import { useMovie } from "../context/StorageContext";
 import MovieCard from "../components/MovieCard";
-import { useEffect, useState } from "react";
 
 export default function Rented() {
   // Accessing rentedMovies from context using custom hook
   const { rentedMovies } = useMovie();
+
+  // Create a footer component
+  const ListFooter = () => <Text style={styles.listFooter}>- End -</Text>;
 
   return (
     <View style={styles.body}>
@@ -37,7 +39,7 @@ export default function Rented() {
       ) : (
         <FlatList
           data={rentedMovies}
-          style={styles.container.card}
+          contentContainerStyle={styles.cardList}
           renderItem={({ item }) => {
             const {
               id,
@@ -60,6 +62,10 @@ export default function Rented() {
             );
           }}
           keyExtractor={(item) => item.id.toString()}
+          ListFooterComponent={ListFooter}
+          ListFooterComponentStyle={{
+            marginBottom: 16,
+          }}
         />
       )}
     </View>
