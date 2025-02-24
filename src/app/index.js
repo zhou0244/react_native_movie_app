@@ -10,17 +10,28 @@ import { FlatList } from "react-native";
 import RentBox from "../components/RentBox";
 import { useMovie } from "../context/StorageContext";
 import { theme } from "../theme/theme";
+import { GestureDetector, Gesture } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
 
 export default function Home() {
   // Custom hooks to access movie and search data from context
   const { rentedMovies, saveRentedMovies } = useMovie();
   const { listedMovies, searchKeyword } = useData();
-
   // State management for UI elements
   const [visible, setVisible] = useState(true);
   const [dialogState, setDialogState] = useState(false);
   const [isRentButton, setIsRentButton] = useState(false);
   const [movieSelected, setMovieSelected] = useState({});
+
+  // Handle double-tap gesture
+  const doubleTap = Gesture.Tap()
+    .numberOfTaps(2)
+    .onStart(() => {
+      console.log("First tap");
+    })
+    .onEnd(() => {
+      console.log("Second tap");
+    });
 
   // Toggle dialog visibility
   const toggleDialog = () => {
@@ -46,11 +57,16 @@ export default function Home() {
       />
 
       {searchKeyword ? (
-        <View style={{ paddingTop: 24 }}>
+        <View
+          style={{
+            paddingTop: 24,
+          }}
+        >
           <Text style={[styles.subTitle, { paddingBottom: 8 }]}>
             Results for
             <Text style={{ color: "royalblue" }}> "{searchKeyword}"</Text>
           </Text>
+
           <FlatList
             contentContainerStyle={styles.cardList}
             data={listedMovies}
@@ -94,6 +110,10 @@ export default function Home() {
             height: "100%",
           }}
         >
+          <GestureDetector gesture={doubleTap}>
+            <Text>Double Tap Me!</Text>
+          </GestureDetector>
+
           <Text style={[styles.title]}>Welcome to{"\n"}The Best Movie App</Text>
           <Text
             style={[styles.subTitle, { color: theme.darkColors.secondary }]}
@@ -119,6 +139,7 @@ export default function Home() {
         }}
         style={{ position: "absolute", bottom: 32, right: 32 }}
       />
+
       <Dialog
         isVisible={dialogState}
         onBackdropPress={toggleDialog}

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { ThemeProvider } from "@rneui/themed";
 import { theme } from "../theme/theme";
 import * as SplashScreen from "expo-splash-screen";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,12 +33,14 @@ export default function RootLayout({ children }) {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <DataProvider>
-        <MovieProvider>
-          <Stack>{children}</Stack>
-        </MovieProvider>
-      </DataProvider>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <DataProvider>
+          <MovieProvider>
+            <Stack>{children}</Stack>
+          </MovieProvider>
+        </DataProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
