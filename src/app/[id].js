@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { styles } from "../theme/style";
 import { useMovie } from "../context/StorageContext";
 import { useVideoPlayer, VideoView } from "expo-video";

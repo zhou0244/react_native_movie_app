@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { View, Image, Text } from "react-native";
+import { View, Text } from "react-native";
 import { styles } from "../theme/style";
 
 export default function Header() {

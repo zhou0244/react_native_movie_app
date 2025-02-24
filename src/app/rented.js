@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { View, Text, FlatList, Image, Button } from "react-native";
+import { View, Text, FlatList, Image } from "react-native";
 import { styles } from "../theme/style";
 import { useMovie } from "../context/StorageContext";
 import MovieCard from "../components/MovieCard";

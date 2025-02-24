@@ -12,6 +12,7 @@ import { useMovie } from "../context/StorageContext";
 import { theme } from "../theme/theme";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
+import { runOnJS } from "react-native-reanimated";
 
 export default function Home() {
   // Custom hooks to access movie and search data from context
@@ -22,16 +23,26 @@ export default function Home() {
   const [dialogState, setDialogState] = useState(false);
   const [isRentButton, setIsRentButton] = useState(false);
   const [movieSelected, setMovieSelected] = useState({});
+  const [isTapped, setIsTapped] = useState(false);
 
   // Handle double-tap gesture
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
     .onStart(() => {
       console.log("First tap");
-    })
-    .onEnd(() => {
-      console.log("Second tap");
+      runOnJS(handleTap)();
     });
+
+  function handleTap() {
+    Toast.show({
+      type: "success",
+      position: "top",
+      text1: "Double Tap Detected",
+      text2: "Double Tap, Double Tap, Double Tap",
+    });
+
+    setIsTapped(!isTapped);
+  }
 
   // Toggle dialog visibility
   const toggleDialog = () => {
@@ -111,7 +122,14 @@ export default function Home() {
           }}
         >
           <GestureDetector gesture={doubleTap}>
-            <Text>Double Tap Me!</Text>
+            <Text
+              style={[
+                isTapped ? { color: "green" } : { color: "fuchsia" },
+                { fontWeight: "bold", textAlign: "center", marginBottom: 40 },
+              ]}
+            >
+              Double Tap Me!
+            </Text>
           </GestureDetector>
 
           <Text style={[styles.title]}>Welcome to{"\n"}The Best Movie App</Text>
@@ -156,6 +174,8 @@ export default function Home() {
           <SearchBox toggleDialog={toggleDialog} />
         )}
       </Dialog>
+
+      <Toast />
     </View>
   );
 }

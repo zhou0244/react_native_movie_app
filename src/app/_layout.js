@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView>
       <ThemeProvider theme={theme}>
         <DataProvider>
           <MovieProvider>
