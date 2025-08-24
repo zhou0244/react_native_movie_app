@@ -121,7 +121,7 @@ export default function Home() {
             height: "100%",
           }}
         >
-          <GestureDetector gesture={doubleTap}>
+          {/* <GestureDetector gesture={doubleTap}>
             <Text
               style={[
                 isTapped ? { color: "green" } : { color: "fuchsia" },
@@ -130,7 +130,7 @@ export default function Home() {
             >
               Double Tap Me!
             </Text>
-          </GestureDetector>
+          </GestureDetector> */}
 
           <Text style={[styles.title]}>Welcome to{"\n"}The Best Movie App</Text>
           <Text

@@ -1,10 +1,8 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { API_KEY } from "@env";
 
 // Create a context for storing movie data
 const DataContext = createContext();
-
-const api_token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkM2ZkOGZjYzZiOGI1ODU3NTZiMzE5MWZiYTUwMzMzZCIsIm5iZiI6MTcxMDc5ODI4My43NzcsInN1YiI6IjY1ZjhiNWNiYWFmODk3MDE0ODJjZjUwMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.reksCWgvLF-iXkmw2C71iB2kTM905PHTvc9CV50TnPo";
 
 // DataProvider component which holds the logic for fetching movies and providing them through context
 function DataProvider({ children }) {
@@ -26,13 +24,14 @@ function DataProvider({ children }) {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${api_token}`,
+        Authorization: `Bearer ${API_KEY}`,
       },
     };
 
     fetch(url, options)
       .then((res) => {
         if (!res.ok) {
+          console.log("Fetch failed.");
           throw new Error(`Response status: ${response.status}`);
         }
         return res.json();
